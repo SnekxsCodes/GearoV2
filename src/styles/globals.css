@@ -105,3 +105,49 @@ a {
     color-scheme: dark;
   }
 }
+
+@font-face {
+  font-family:'Poppins';
+  src: url('/fonts/Poppins-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+
+}
+
+.logo {
+  font-size: 2rem;
+  user-select: none;
+  margin-left: 20px;
+}
+
+.version {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  color: #0e92d0;
+  vertical-align: super;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.actions > *:not(:last-child) {
+  margin-right: 1rem;
+}
+
+
+
+
+
+
+
