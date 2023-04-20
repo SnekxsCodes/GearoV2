@@ -145,8 +145,45 @@ a {
   margin-right: 1rem;
 }
 
+.UserCard img {
+  margin-right: 1rem;
+  width: 10%;
+  height: auto;
+  border-radius: 50%;
+  user-select: none;
+}
 
+.UserCard {
+  background-color: #0892d0;
+  color: white;
+  font-family: "Montserrat";
+  height: auto;
+  border-radius: 0 0 45px 45px;
+  padding: 20px;
+  width: 100%;
+  user-select: none;
+  overflow: auto;
+}
 
+.userStatus {
+  display: inline-block;
+  background-color: white;
+  padding: 5px;
+  margin-top: 20px;
+  overflow: hidden;
+  color: black;
+  border-radius: 25px;
+  font-size: 10px;
+  user-select: none;
+}
+
+.UserCreated {
+  font-size: 20px;
+}
+
+.products{
+  padding:20px
+}
 
 
 
