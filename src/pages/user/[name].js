@@ -29,6 +29,21 @@ export default function UserPage(name) {
     fetchData();
   }, []);
 
+  function daysAgo(dateString) {
+    const today = new Date();
+    const date = new Date(dateString);
+    const oneDay = 24 * 60 * 60 * 1000; // milliseconds in one day
+    const diffDays = Math.round(Math.abs((today - date) / oneDay));
+
+    if (diffDays === 0) {
+      return "today";
+    } else if (diffDays === 1) {
+      return "yesterday";
+    } else {
+      return `${diffDays} days ago`;
+    }
+  }
+
   return (
     <div>
       <Header />
@@ -37,7 +52,9 @@ export default function UserPage(name) {
           <div className="UserCard" key={user.id}>
             <img src={user.image_url} />
             <h1>{user.name}</h1>
-            <h1 className={"UserCreated"}>Created Yesterday</h1>
+            <h1 className={"UserCreated"}>
+              Created {daysAgo(user.created_at)}
+            </h1>
             <div className="userStatus">
               <h1>Online</h1>
             </div>
@@ -57,7 +74,8 @@ export default function UserPage(name) {
 
               <Stack>
                 <CardBody>
-                  <Heading size="md">{user.mouse}</Heading>
+                  <Heading size={"md"}>Mouse</Heading>
+                  <Heading>{user.mouse}</Heading>
                 </CardBody>
 
                 <CardFooter>
@@ -81,7 +99,8 @@ export default function UserPage(name) {
 
               <Stack>
                 <CardBody>
-                  <Heading size="md">{user.mousepad}</Heading>
+                  <Heading size={"md"}>Mousepad</Heading>
+                  <Heading>{user.mousepad}</Heading>
                 </CardBody>
 
                 <CardFooter>
@@ -105,7 +124,8 @@ export default function UserPage(name) {
 
               <Stack>
                 <CardBody>
-                  <Heading size="md">{user.headphones}</Heading>
+                  <Heading size={"md"}>Headphones</Heading>
+                  <Heading>{user.headphones}</Heading>
                 </CardBody>
 
                 <CardFooter>
@@ -129,7 +149,8 @@ export default function UserPage(name) {
 
               <Stack>
                 <CardBody>
-                  <Heading size="md">{user.monitor}</Heading>
+                  <Heading size={"md"}>Monitor</Heading>
+                  <Heading>{user.monitor}</Heading>
                 </CardBody>
 
                 <CardFooter>
