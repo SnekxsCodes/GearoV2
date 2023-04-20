@@ -20,7 +20,7 @@ export default function UserPage(name) {
   return (
     <div>
       {data?.map((user) => (
-        <div>
+        <div key={user.id}>
           <h1>{user.name}</h1>
           <h1>{user.mouse}</h1>
           <h1>{user.mousepad}</h1>
