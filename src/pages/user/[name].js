@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../../components/helpers/supabase";
 import Header from "../../../components/Header";
+import Rating from "../../../components/Rating";
 import {
   Card,
   CardHeader,
@@ -32,7 +33,7 @@ export default function UserPage(name) {
   function daysAgo(dateString) {
     const today = new Date();
     const date = new Date(dateString);
-    const oneDay = 24 * 60 * 60 * 1000; // milliseconds in one day
+    const oneDay = 24 * 60 * 60 * 1000;
     const diffDays = Math.round(Math.abs((today - date) / oneDay));
 
     if (diffDays === 0) {
@@ -42,6 +43,11 @@ export default function UserPage(name) {
     } else {
       return `${diffDays} days ago`;
     }
+  }
+
+  function clickHandler(name) {
+    const url = `https://www.amazon.com/s?k=${name}`;
+    window.open(url, "_blank");
   }
 
   return (
@@ -64,22 +70,29 @@ export default function UserPage(name) {
               direction={{ base: "column", sm: "row" }}
               overflow="hidden"
               variant="outline"
+              className={"productCard"}
             >
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
                 src={user.mouse_image}
                 alt="mouse"
+                fallbackSrc={"https://via.placeholder.com/500"}
               />
 
               <Stack>
                 <CardBody>
                   <Heading size={"md"}>Mouse</Heading>
                   <Heading>{user.mouse}</Heading>
+                  <Rating value={3 / 5} />
                 </CardBody>
 
                 <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
+                  <Button
+                    variant="solid"
+                    colorScheme="blue"
+                    onClick={() => clickHandler(user.mouse)}
+                  >
                     Link
                   </Button>
                 </CardFooter>
@@ -89,12 +102,14 @@ export default function UserPage(name) {
               direction={{ base: "column", sm: "row" }}
               overflow="hidden"
               variant="outline"
+              className={"productCard"}
             >
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
                 src={user.mousepad_image}
                 alt="mousepad"
+                fallbackSrc={"https://via.placeholder.com/500"}
               />
 
               <Stack>
@@ -114,12 +129,14 @@ export default function UserPage(name) {
               direction={{ base: "column", sm: "row" }}
               overflow="hidden"
               variant="outline"
+              className={"productCard"}
             >
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
                 src={user.headphones_image}
                 alt="headphones"
+                fallbackSrc={"https://via.placeholder.com/500"}
               />
 
               <Stack>
@@ -139,12 +156,14 @@ export default function UserPage(name) {
               direction={{ base: "column", sm: "row" }}
               overflow="hidden"
               variant="outline"
+              className={"productCard"}
             >
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
                 src={user.monitor_image}
                 alt="monitor"
+                fallbackSrc={"https://via.placeholder.com/500"}
               />
 
               <Stack>
