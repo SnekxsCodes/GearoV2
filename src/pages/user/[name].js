@@ -84,7 +84,7 @@ export default function UserPage(name) {
                 <CardBody>
                   <Heading size={"md"}>Mouse</Heading>
                   <Heading>{user.mouse}</Heading>
-                  <Rating value={3 / 5} />
+                  <Rating value={user.rating / 5} />
                 </CardBody>
 
                 <CardFooter>

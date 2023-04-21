@@ -9,8 +9,6 @@ export default function Rating({ value }) {
     setRating(Math.round(value * 5));
   }, [value]);
 
-  console.log("rating:", rating); // add console log statement to show rating value
-
   return (
     <div className="rating">
       {[...Array(5)].map((_, i) => (
