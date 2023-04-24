@@ -50,7 +50,7 @@ export default function UserPage(name) {
     const url = `https://www.amazon.com/s?k=${name}`;
     window.open(url, "_blank");
   }
-
+  //Add Status Indicator Instead of text
   function isOnline(online) {
     if (online) {
       return (
@@ -59,11 +59,6 @@ export default function UserPage(name) {
         </div>
       );
     }
-    return (
-      <div className="userStatus">
-        <Heading size={"md"}>Offline</Heading>
-      </div>
-    );
   }
 
   return (
