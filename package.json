@@ -29,11 +29,7 @@
     "@mantine/prism": "^6.0.8",
     "@mantine/spotlight": "^6.0.8",
     "@mantine/tiptap": "^6.0.8",
-    "@react-buddy/ide-toolbox-next": "^2.4.0",
-    "@react-buddy/palette-chakra-ui": "^2.3.1",
-    "@react-buddy/palette-mantine-core": "^6.0.0",
-    "@react-buddy/palette-mantine-dates": "^6.0.0",
-    "@react-buddy/palette-mantine-form": "^6.0.0",
+
     "@supabase/supabase-js": "^2.21.0",
     "@tabler/icons-react": "^2.16.0",
     "@tiptap/extension-link": "^2.0.3",
