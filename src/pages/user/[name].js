@@ -51,6 +51,21 @@ export default function UserPage(name) {
     window.open(url, "_blank");
   }
 
+  function isOnline(online) {
+    if (online) {
+      return (
+        <div className="userStatus">
+          <Heading size={"md"}>Online</Heading>
+        </div>
+      );
+    }
+    return (
+      <div className="userStatus">
+        <Heading size={"md"}>Offline</Heading>
+      </div>
+    );
+  }
+
   return (
     <div>
       <Header />
@@ -62,9 +77,7 @@ export default function UserPage(name) {
             <Heading size={"md"} className={"UserCreated"}>
               Created {daysAgo(user.created_at)}
             </Heading>
-            <div className="userStatus">
-              <Heading size={"md"}>Online</Heading>
-            </div>
+            {isOnline(user.online)}
           </div>
           <div className={"products"}>
             <Card

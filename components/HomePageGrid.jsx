@@ -59,6 +59,8 @@ export default function HomePageGrid() {
     }
   }
 
+  function randomColor
+
   function isMod(mod) {
     if (mod) {
       return (
