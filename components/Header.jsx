@@ -1,13 +1,31 @@
 import ThemeToggle from "./ThemeToggle";
 import Login from "./Login";
+import { useRouter } from "next/router";
+
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Text,
+  Stack,
+  Heading,
+  Button,
+  Image,
+} from "@chakra-ui/react";
 
 export default function Header() {
+  const router = useRouter();
+
+  function clickHandler() {
+    router.push("/");
+  }
   return (
     <>
       <header className={"header"}>
-        <h1 className={"logo"}>
+        <Heading p={"2"} onClick={clickHandler} className={"logo"}>
           Gearo<span className={"version"}>Alpha</span>
-        </h1>
+        </Heading>
         <div className="actions">
           <Login />
           <ThemeToggle />

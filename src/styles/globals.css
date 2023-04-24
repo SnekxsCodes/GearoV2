@@ -120,15 +120,13 @@ a {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-
-
 }
 
-.logo {
-  font-size: 2rem;
-  user-select: none;
-  margin-left: 20px;
+.logo{
+  cursor: pointer;
 }
+
+
 
 .version {
   font-size: 1rem;
@@ -157,7 +155,7 @@ a {
 .UserCard {
   background-color: #0892d0;
   color: white;
-  font-family: "Montserrat";
+
   height: auto;
   border-radius: 0 0 45px 45px;
   padding: 20px;
@@ -169,7 +167,7 @@ a {
 .userStatus {
   display: inline-block;
   background-color: white;
-  padding: 5px;
+  padding: 10px;
   margin-top: 20px;
   overflow: hidden;
   color: black;
@@ -214,6 +212,27 @@ a {
 .filled {
   color: #f5bd1f;
 }
+
+.rating-container {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+}
+
+.ProductDesc{
+  background: #cccccc;
+  border-radius: 10px;
+  color:black
+
+}
+
+.disabled {
+  background: none;
+  color: gray;
+}
+
+.HomePageCard{cursor: pointer}
+
 
 
 

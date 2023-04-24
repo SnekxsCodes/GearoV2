@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../../components/helpers/supabase";
 import Header from "../../../components/Header";
 import Rating from "../../../components/Rating";
+import { Code } from "@chakra-ui/react";
 import {
   Card,
   CardHeader,
@@ -57,12 +58,12 @@ export default function UserPage(name) {
         <>
           <div className="UserCard" key={user.id}>
             <img src={user.image_url} />
-            <h1>{user.name}</h1>
-            <h1 className={"UserCreated"}>
+            <Heading>{user.name}</Heading>
+            <Heading size={"md"} className={"UserCreated"}>
               Created {daysAgo(user.created_at)}
-            </h1>
+            </Heading>
             <div className="userStatus">
-              <h1>Online</h1>
+              <Heading size={"md"}>Online</Heading>
             </div>
           </div>
           <div className={"products"}>
@@ -84,6 +85,7 @@ export default function UserPage(name) {
                 <CardBody>
                   <Heading size={"md"}>Mouse</Heading>
                   <Heading>{user.mouse}</Heading>
+
                   <Rating value={user.rating / 5} />
                 </CardBody>
 
