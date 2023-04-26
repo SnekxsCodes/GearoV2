@@ -3,20 +3,15 @@ import { supabase } from "./helpers/supabase";
 import {
   Card,
   CardBody,
-  Grid,
+  CardFooter,
+  CardHeader,
+  GridItem,
   Heading,
   Image,
-  Stack,
-  Text,
   SimpleGrid,
-  Code,
-  GridItem,
-  Flex,
-  HStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { MdVerified } from "react-icons/md";
-import { BiCrown } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import { AiFillCrown } from "react-icons/ai";
 import { BsFillShieldFill } from "react-icons/bs";
@@ -27,7 +22,7 @@ export default function HomePageGrid() {
 
   useEffect(() => {
     supabase
-      .from("users")
+      .from("user")
       .select("*")
       .then((response) => {
         setData(response.data);
@@ -71,35 +66,40 @@ export default function HomePageGrid() {
 
   return (
     <div>
-      <Grid templateColumns="repeat(5, 1fr)" gap={10} p={"5"}>
+      <SimpleGrid columns={5} spacing={1}>
         {data?.map((user) => (
           <GridItem>
             <Card
               maxW="sm"
-              onClick={() => clickHandler(user.name)}
+              align="center"
+              onClick={() => clickHandler(user.user_info.name)}
               className={"HomePageCard"}
+              m={5}
             >
               <CardBody>
                 <Image
-                  src={user.image_url}
+                  boxSize="150px"
+                  src={user.user_info.image}
                   alt="User Profile Picture"
                   borderRadius="full"
                 />
-                <Stack mt="6" spacing="3">
-                  <HStack>
-                    <Heading>{user.name}</Heading>
-                    {isVerified(user.is_verified)}
-                    {isOwner(user.is_owner)}
-                    {isMod(user.is_mod)}
-                  </HStack>
+                <CardHeader>
+                  <Heading>{user.user_info.name}</Heading>
+                  <div className={"userBadges"}>
+                    {isOwner(user.user_info.is_owner)}
+                    {isVerified(user.user_info.is_verified)}
+                    {isMod(user.user_info.is_mod)}
+                  </div>
+                </CardHeader>
 
-                  <Heading size={"sm"}>{user.description}</Heading>
-                </Stack>
+                <CardFooter>
+                  <Heading size={"sm"}>{user.user_info.description}</Heading>
+                </CardFooter>
               </CardBody>
             </Card>
           </GridItem>
         ))}
-      </Grid>
+      </SimpleGrid>
     </div>
   );
 }

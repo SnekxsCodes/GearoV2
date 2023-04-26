@@ -124,6 +124,7 @@ a {
 
 .logo{
   cursor: pointer;
+  user-select: none;
 }
 
 
@@ -144,13 +145,7 @@ a {
   margin-right: 1rem;
 }
 
-.UserCard img {
-  margin-right: 1rem;
-  width: 10%;
-  height: auto;
-  border-radius: 50%;
-  user-select: none;
-}
+
 
 .UserCard {
   background-color: #0892d0;
@@ -162,6 +157,14 @@ a {
   width: 100%;
   user-select: none;
   overflow: auto;
+}
+
+.UserCard img {
+  margin-right: 1rem;
+  width: 10%;
+  height: auto;
+  border-radius: 50%;
+  user-select: none;
 }
 
 .userStatus {
@@ -231,8 +234,16 @@ a {
   color: gray;
 }
 
-.HomePageCard{cursor: pointer}
+.HomePageCard{
+  cursor: pointer;
+
+  }
 
 
-
+.userBadges{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px;
+}
 

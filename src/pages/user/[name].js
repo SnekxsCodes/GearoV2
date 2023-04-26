@@ -2,27 +2,25 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../../components/helpers/supabase";
 import Header from "../../../components/Header";
 import Rating from "../../../components/Rating";
-import { Code } from "@chakra-ui/react";
 import {
+  Button,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
-  Text,
-  Stack,
   Heading,
-  Button,
   Image,
+  Stack,
 } from "@chakra-ui/react";
+
 export default function UserPage(name) {
   const [data, setData] = useState();
 
   useEffect(() => {
     async function fetchData() {
       await supabase
-        .from("users")
+        .from("user")
         .select("*")
-        .eq("name", name.name)
+        .eq("user_info->>name", name.name)
         .then((response) => {
           setData(response.data);
           console.log(response.data);
@@ -67,12 +65,12 @@ export default function UserPage(name) {
       {data?.map((user) => (
         <>
           <div className="UserCard" key={user.id}>
-            <img src={user.image_url} />
-            <Heading>{user.name}</Heading>
+            <img src={user.user_info.image} />
+            <Heading>{user.user_info.name}</Heading>
             <Heading size={"md"} className={"UserCreated"}>
               Created {daysAgo(user.created_at)}
             </Heading>
-            {isOnline(user.online)}
+            {isOnline(user.user_info.online)}
           </div>
           <div className={"products"}>
             <Card
@@ -84,7 +82,7 @@ export default function UserPage(name) {
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
-                src={user.mouse_image}
+                src={user.mouse.image}
                 alt="mouse"
                 fallbackSrc={"https://via.placeholder.com/500"}
               />
@@ -92,16 +90,16 @@ export default function UserPage(name) {
               <Stack>
                 <CardBody>
                   <Heading size={"md"}>Mouse</Heading>
-                  <Heading>{user.mouse}</Heading>
+                  <Heading>{user.mouse.name}</Heading>
 
-                  <Rating value={user.rating / 5} />
+                  <Rating value={user.mouse.rating / 5} />
                 </CardBody>
 
                 <CardFooter>
                   <Button
                     variant="solid"
                     colorScheme="blue"
-                    onClick={() => clickHandler(user.mouse)}
+                    onClick={() => clickHandler(user.mouse.name)}
                   >
                     Link
                   </Button>
@@ -117,7 +115,7 @@ export default function UserPage(name) {
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
-                src={user.mousepad_image}
+                src={user.mousepad.image}
                 alt="mousepad"
                 fallbackSrc={"https://via.placeholder.com/500"}
               />
@@ -125,11 +123,16 @@ export default function UserPage(name) {
               <Stack>
                 <CardBody>
                   <Heading size={"md"}>Mousepad</Heading>
-                  <Heading>{user.mousepad}</Heading>
+                  <Heading>{user.mousepad.name}</Heading>
+                  <Rating value={user.mousepad.rating / 5} />
                 </CardBody>
 
                 <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
+                  <Button
+                    variant="solid"
+                    colorScheme="blue"
+                    onClick={() => clickHandler(user.mousepad.name)}
+                  >
                     Link
                   </Button>
                 </CardFooter>
@@ -144,7 +147,7 @@ export default function UserPage(name) {
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
-                src={user.headphones_image}
+                src={user.headphones.image}
                 alt="headphones"
                 fallbackSrc={"https://via.placeholder.com/500"}
               />
@@ -152,11 +155,16 @@ export default function UserPage(name) {
               <Stack>
                 <CardBody>
                   <Heading size={"md"}>Headphones</Heading>
-                  <Heading>{user.headphones}</Heading>
+                  <Heading>{user.headphones.name}</Heading>
+                  <Rating value={user.headphones.rating / 5} />
                 </CardBody>
 
                 <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
+                  <Button
+                    variant="solid"
+                    colorScheme="blue"
+                    onClick={() => clickHandler(user.headphones.name)}
+                  >
                     Link
                   </Button>
                 </CardFooter>
@@ -171,7 +179,7 @@ export default function UserPage(name) {
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
-                src={user.monitor_image}
+                src={user.monitor.image}
                 alt="monitor"
                 fallbackSrc={"https://via.placeholder.com/500"}
               />
@@ -179,11 +187,16 @@ export default function UserPage(name) {
               <Stack>
                 <CardBody>
                   <Heading size={"md"}>Monitor</Heading>
-                  <Heading>{user.monitor}</Heading>
+                  <Heading>{user.monitor.name}</Heading>
+                  <Rating value={user.monitor.rating / 5} />
                 </CardBody>
 
                 <CardFooter>
-                  <Button variant="solid" colorScheme="blue">
+                  <Button
+                    variant="solid"
+                    colorScheme="blue"
+                    onClick={() => clickHandler(user.monitor.name)}
+                  >
                     Link
                   </Button>
                 </CardFooter>
