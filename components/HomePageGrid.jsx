@@ -57,7 +57,7 @@ export default function HomePageGrid() {
   function isMod(mod) {
     if (mod) {
       return (
-        <IconContext.Provider value={{ color: "#AEC6CF", size: "20" }}>
+        <IconContext.Provider value={{ color: "#77DD77", size: "20" }}>
           <BsFillShieldFill />
         </IconContext.Provider>
       );
