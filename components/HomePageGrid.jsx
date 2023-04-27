@@ -47,7 +47,7 @@ export default function HomePageGrid() {
   function isOwner(owner) {
     if (owner) {
       return (
-        <IconContext.Provider value={{ color: "#AEC6CF", size: "20" }}>
+        <IconContext.Provider value={{ color: "#FDFD96", size: "20" }}>
           <AiFillCrown />
         </IconContext.Provider>
       );
