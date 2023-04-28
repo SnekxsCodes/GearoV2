@@ -67,38 +67,42 @@ export default function HomePageGrid() {
   return (
     <div>
       <SimpleGrid columns={5} spacing={1}>
-        {data?.map((user) => (
-          <GridItem>
-            <Card
-              maxW="sm"
-              align="center"
-              onClick={() => clickHandler(user.user_info.name)}
-              className={"HomePageCard"}
-              m={5}
-            >
-              <CardBody>
-                <Image
-                  boxSize="150px"
-                  src={user.user_info.image}
-                  alt="User Profile Picture"
-                  borderRadius="full"
-                />
-                <CardHeader>
-                  <Heading>{user.user_info.name}</Heading>
-                  <div className={"userBadges"}>
-                    {isOwner(user.user_info.is_owner)}
-                    {isVerified(user.user_info.is_verified)}
-                    {isMod(user.user_info.is_mod)}
-                  </div>
-                </CardHeader>
+        {data
+          ?.sort(
+            (a, b) => b.user_info.profile_views - a.user_info.profile_views
+          )
+          .map((user) => (
+            <GridItem key={user.id}>
+              <Card
+                maxW="sm"
+                align="center"
+                onClick={() => clickHandler(user.user_info.name)}
+                className={"HomePageCard"}
+                m={5}
+              >
+                <CardBody>
+                  <Image
+                    boxSize="150px"
+                    src={user.user_info.image}
+                    alt="User Profile Picture"
+                    borderRadius="full"
+                  />
+                  <CardHeader>
+                    <Heading>{user.user_info.name}</Heading>
+                    <div className={"userBadges"}>
+                      {isOwner(user.user_info.is_owner)}
+                      {isVerified(user.user_info.is_verified)}
+                      {isMod(user.user_info.is_mod)}
+                    </div>
+                  </CardHeader>
 
-                <CardFooter>
-                  <Heading size={"sm"}>{user.user_info.description}</Heading>
-                </CardFooter>
-              </CardBody>
-            </Card>
-          </GridItem>
-        ))}
+                  <CardFooter>
+                    <Heading size={"sm"}>{user.user_info.description}</Heading>
+                  </CardFooter>
+                </CardBody>
+              </Card>
+            </GridItem>
+          ))}
       </SimpleGrid>
     </div>
   );
