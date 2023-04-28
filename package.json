@@ -29,7 +29,6 @@
     "@mantine/prism": "^6.0.8",
     "@mantine/spotlight": "^6.0.8",
     "@mantine/tiptap": "^6.0.8",
-
     "@supabase/supabase-js": "^2.21.0",
     "@tabler/icons-react": "^2.16.0",
     "@tiptap/extension-link": "^2.0.3",
@@ -38,11 +37,13 @@
     "dayjs": "^1.11.7",
     "embla-carousel-react": "^7.1.0",
     "eslint-config-next": "13.3.0",
+    "formik": "^2.2.9",
     "framer-motion": "^10.12.4",
     "next": "13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.8.0"
+    "react-icons": "^4.8.0",
+    "yup": "^1.1.1"
   },
   "devDependencies": {
     "eslint": "^8.38.0",
