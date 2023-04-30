@@ -15,8 +15,9 @@ import {
   MenuList,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
+import { v4 as uuidv4 } from "uuid";
 import * as Yup from "yup";
 import {
   Modal,
@@ -38,6 +39,16 @@ export default function Login() {
   const handleClick = () => setShow(!show);
   const router = useRouter();
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("name");
+    console.log(storedUser);
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
+
   const {
     isOpen: isOpenLoginModal,
     onOpen: onOpenLoginModal,
@@ -49,6 +60,10 @@ export default function Login() {
     onOpen: onOpenRegisterModal,
     onClose: onCloseRegisterModal,
   } = useDisclosure();
+
+  function gen_uuid() {
+    return uuidv4();
+  }
 
   function submitRegister(values, { setSubmitting }) {
     supabase.auth
@@ -67,10 +82,11 @@ export default function Login() {
           description: null,
           is_verified: false,
           profile_views: 0,
+          uuid: gen_uuid(),
         };
         supabase
           .from("user")
-          .insert({ user_info: registerJson })
+          .insert([{ user_info: registerJson, email: values.email }])
           .then((result) => {
             console.log(result);
           })
@@ -85,20 +101,49 @@ export default function Login() {
       });
   }
 
-  function submitLogin() {}
+  function submitSignout() {
+    localStorage.removeItem("name");
+    supabase.auth.signOut();
+    router.reload();
+  }
+
+  function submitLogin(values, { setSubmitting }) {
+    supabase.auth
+      .signInWithPassword({
+        email: values.email,
+        password: values.password,
+      })
+      .then((result) => {
+        supabase
+          .from("user")
+          .select("*")
+          .eq("email", values.email)
+          .then((response) => {
+            localStorage.setItem("name", response.data[0].user_info.name);
+            router.reload();
+          });
+      });
+  }
 
   return (
     <>
       <Menu>
-        <MenuButton
-          as={IconButton}
-          aria-label="Options"
-          icon={<LockIcon />}
-          variant="ghost"
-        />
+        <MenuButton as={Button} variant="ghost">
+          {user ? user : <LockIcon />}
+        </MenuButton>
         <MenuList>
-          <MenuItem onClick={onOpenLoginModal}>Login</MenuItem>
-          <MenuItem onClick={onOpenRegisterModal}>Register</MenuItem>
+          {user ? (
+            <div>
+              <MenuItem>Profile</MenuItem>
+              <MenuItem>Settings</MenuItem>
+              <MenuItem onClick={submitSignout}>Sign Out</MenuItem>
+            </div>
+          ) : (
+            <>
+              <MenuItem onClick={onOpenLoginModal}>Login</MenuItem>
+              <MenuItem onClick={onOpenRegisterModal}>Register</MenuItem>
+            </>
+          )}
         </MenuList>
       </Menu>
 
@@ -251,10 +296,7 @@ export default function Login() {
                 password: Yup.string().required("Required"),
               })}
               onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  alert(JSON.stringify(values, null, 2));
-                  setSubmitting(false);
-                }, 400);
+                submitLogin(values, { setSubmitting });
               }}
             >
               {({ errors, touched }) => (

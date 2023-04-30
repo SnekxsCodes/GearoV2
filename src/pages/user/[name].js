@@ -45,9 +45,92 @@ export default function UserPage(name) {
   }
 
   function clickHandler(name) {
-    const url = `https://www.amazon.com/s?k=${name}`;
-    window.open(url, "_blank");
+    let amazonDomain = "com"; // Default to the US Amazon page
+    // Get user's location permission
+    navigator.permissions
+      .query({ name: "geolocation" })
+      .then(function (permissionStatus) {
+        if (permissionStatus.state === "granted") {
+          // User has granted permission, get country code using Geolocation API
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              const latitude = position.coords.latitude;
+              const longitude = position.coords.longitude;
+              // Make a request to a geolocation API to get the country code
+              const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+              fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                  if (data.countryName) {
+                    // Redirect to the appropriate Amazon page based on country name
+                    if (data.countryName.includes("Canada")) {
+                      amazonDomain = "ca";
+                    } else if (data.countryName.includes("United Kingdom")) {
+                      amazonDomain = "co.uk";
+                    }
+                    window.open(
+                      `https://www.amazon.${amazonDomain}/s?k=${name}`,
+                      "_blank"
+                    );
+                  } else {
+                    // If country code cannot be determined, redirect to the default Amazon page
+                    window.open(`https://www.amazon.com/s?k=${name}`, "_blank");
+                  }
+                });
+            },
+            function (error) {
+              // If there's an error with geolocation, redirect to the default Amazon page
+              console.error(error);
+              window.open(`https://www.amazon.com/s?k=${name}`, "_blank");
+            }
+          );
+        } else if (permissionStatus.state === "prompt") {
+          // User hasn't granted permission yet, notify why permission is needed
+          alert(
+            "We need your location to determine the appropriate Amazon page for your country."
+          );
+          navigator.geolocation.getCurrentPosition(
+            function (position) {
+              const latitude = position.coords.latitude;
+              const longitude = position.coords.longitude;
+              // Make a request to a geolocation API to get the country code
+              const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+              fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                  if (data.countryName) {
+                    // Redirect to the appropriate Amazon page based on country name
+                    if (data.countryName.includes("Canada")) {
+                      amazonDomain = "ca";
+                    } else if (data.countryName.includes("United Kingdom")) {
+                      amazonDomain = "co.uk";
+                    }
+                    window.open(
+                      `https://www.amazon.${amazonDomain}/s?k=${name}`,
+                      "_blank"
+                    );
+                  } else {
+                    // If country code cannot be determined, redirect to the default Amazon page
+                    window.open(`https://www.amazon.com/s?k=${name}`, "_blank");
+                  }
+                });
+            },
+            function (error) {
+              // If there's an error with geolocation, redirect to the default Amazon page
+              console.error(error);
+              window.open(`https://www.amazon.com/s?k=${name}`, "_blank");
+            }
+          );
+        } else {
+          // User has denied permission, redirect to default Amazon page
+          alert(
+            "You have denied permission to access your location. Redirecting to the default Amazon page."
+          );
+          window.open(`https://www.amazon.com/s?k=${name}`, "_blank");
+        }
+      });
   }
+
   //Add Status Indicator Instead of text
   function isOnline(online) {
     if (online) {
