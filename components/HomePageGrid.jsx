@@ -9,6 +9,7 @@ import {
   Heading,
   Image,
   SimpleGrid,
+  Tooltip,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { MdVerified } from "react-icons/md";
@@ -22,15 +23,16 @@ export default function HomePageGrid() {
 
   useEffect(() => {
     supabase
-      .from("user")
+      .from("users")
       .select("*")
       .then((response) => {
-        setData(response.data);
         console.log(response.data);
+        setData(response.data);
       });
   }, []);
 
   function clickHandler(name) {
+    console.log(name);
     router.push(`/user/${name}`);
   }
 
@@ -68,40 +70,48 @@ export default function HomePageGrid() {
     <div>
       <SimpleGrid columns={5} spacing={1}>
         {data
-          ?.sort(
-            (a, b) => b.user_info.profile_views - a.user_info.profile_views
-          )
+          ?.sort((a, b) => b.profile_views - a.profile_views)
           .map((user) => (
-            <GridItem key={user.id}>
-              <Card
-                maxW="sm"
-                align="center"
-                onClick={() => clickHandler(user.user_info.name)}
-                className={"HomePageCard"}
-                m={5}
-              >
-                <CardBody>
-                  <Image
-                    boxSize="150px"
-                    src={user.user_info.image}
-                    alt="User Profile Picture"
-                    borderRadius="full"
-                  />
-                  <CardHeader>
-                    <Heading>{user.user_info.name}</Heading>
-                    <div className={"userBadges"}>
-                      {isOwner(user.user_info.is_owner)}
-                      {isVerified(user.user_info.is_verified)}
-                      {isMod(user.user_info.is_mod)}
-                    </div>
-                  </CardHeader>
-
-                  <CardFooter>
-                    <Heading size={"sm"}>{user.user_info.description}</Heading>
-                  </CardFooter>
-                </CardBody>
-              </Card>
-            </GridItem>
+            <>
+              {user.is_private ? null : ( // if user is private, do not show the card
+                // if user is not private, show the card
+                <GridItem key={user.id}>
+                  <Card
+                    maxW="sm"
+                    align="center"
+                    onClick={() => clickHandler(user.name)}
+                    className={"HomePageCard"}
+                    m={5}
+                  >
+                    <CardBody
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Image
+                        boxSize="150px"
+                        src={user.user_image}
+                        alt="User Profile Picture"
+                        borderRadius="full"
+                      />
+                      <CardHeader>
+                        <Heading>{user.name}</Heading>
+                        <div className={"userBadges"}>
+                          {isOwner(user.is_owner)}
+                          {isVerified(user.is_verified)}
+                          {isMod(user.is_mod)}
+                        </div>
+                      </CardHeader>
+                      <CardFooter>
+                        <Heading size={"sm"}>{user.user_description}</Heading>
+                      </CardFooter>
+                    </CardBody>
+                  </Card>
+                </GridItem>
+              )}
+            </>
           ))}
       </SimpleGrid>
     </div>

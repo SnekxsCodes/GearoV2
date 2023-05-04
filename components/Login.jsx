@@ -32,6 +32,7 @@ import {
 
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { supabase } from "./helpers/supabase";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Login() {
   const [mode, setMode] = useState("icon");
@@ -72,21 +73,23 @@ export default function Login() {
         password: values.password,
       })
       .then((result) => {
-        const registerJson = {
-          name: values.username,
-          image: "https://via.placeholder.com/500",
-          is_mod: false,
-          online: false,
-          is_owner: false,
-          is_private: false,
-          description: null,
-          is_verified: false,
-          profile_views: 0,
-          uuid: gen_uuid(),
-        };
         supabase
-          .from("user")
-          .insert([{ user_info: registerJson, email: values.email }])
+          .from("users")
+          .insert([
+            {
+              email: values.email,
+              name: values.username,
+              user_description: null,
+              user_image: "",
+              user_uuid: gen_uuid(),
+              is_mod: false,
+              online: false,
+              is_owner: false,
+              is_private: true,
+              is_verified: false,
+              profile_views: null,
+            },
+          ])
           .then((result) => {
             console.log(result);
           })
@@ -107,26 +110,35 @@ export default function Login() {
     router.reload();
   }
 
+  function profileHandler() {
+    const name = localStorage.getItem("name");
+    router.push(`/profile/${name}`);
+  }
+
   function submitLogin(values, { setSubmitting }) {
     supabase.auth
-      .signInWithPassword({
-        email: values.email,
-        password: values.password,
-      })
-      .then((result) => {
-        supabase
-          .from("user")
-          .select("*")
-          .eq("email", values.email)
-          .then((response) => {
-            localStorage.setItem("name", response.data[0].user_info.name);
-            router.reload();
-          });
+      .signInWithPassword({ email: values.email, password: values.password })
+      .then((response) => {
+        if (response.error) {
+          toast.error(response.error.message);
+        } else {
+          toast.success("Welcome!");
+          supabase
+            .from("user")
+            .select("*")
+            .eq("email", values.email)
+            .then((response) => {
+              localStorage.setItem("name", response.data[0].user_info.name);
+              localStorage.setItem("name", response.data[0].user_info.name);
+              router.reload();
+            });
+        }
       });
   }
 
   return (
     <>
+      <Toaster />
       <Menu>
         <MenuButton as={Button} variant="ghost">
           {user ? user : <LockIcon />}
@@ -134,7 +146,7 @@ export default function Login() {
         <MenuList>
           {user ? (
             <div>
-              <MenuItem>Profile</MenuItem>
+              <MenuItem onClick={profileHandler}>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuItem onClick={submitSignout}>Sign Out</MenuItem>
             </div>

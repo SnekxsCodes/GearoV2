@@ -10,6 +10,7 @@ import {
   Heading,
   Image,
   Stack,
+  Divider,
 } from "@chakra-ui/react";
 
 export default function UserPage(name) {
@@ -149,12 +150,15 @@ export default function UserPage(name) {
         <>
           <div className="UserCard" key={user.id}>
             <img src={user.user_info.image} />
-            <Heading>{user.user_info.name}</Heading>
-            <Heading size={"md"} className={"UserCreated"}>
-              Created {daysAgo(user.created_at)}
-            </Heading>
-            {isOnline(user.user_info.online)}
+            <div className={"userInfo"}>
+              <Heading>{user.user_info.name}</Heading>
+              <Heading size={"md"} className={"UserCreated"}>
+                Created {daysAgo(user.created_at)}
+              </Heading>
+              {isOnline(user.user_info.online)}
+            </div>
           </div>
+          <Divider />
           <div className={"products"}>
             <Card
               direction={{ base: "column", sm: "row" }}
