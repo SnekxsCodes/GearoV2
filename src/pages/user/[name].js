@@ -137,6 +137,10 @@ export default function UserPage(name) {
           <Heading size={"md"}>Online</Heading>
         </div>
       );
+    } else {
+      <div className="offlineStatus">
+        <Heading size={"md"}>Online</Heading>
+      </div>;
     }
   }
 

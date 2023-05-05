@@ -1,9 +1,9 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -107,13 +107,11 @@ a {
 }
 
 @font-face {
-  font-family:'Poppins';
-  src: url('/fonts/Poppins-Regular.ttf');
+  font-family: "Poppins";
+  src: url("/fonts/Poppins-Regular.ttf");
   font-weight: normal;
   font-style: normal;
-;
 }
-
 
 .header {
   display: flex;
@@ -123,12 +121,10 @@ a {
   padding: 0.5rem;
 }
 
-.logo{
+.logo {
   cursor: pointer;
   user-select: none;
 }
-
-
 
 .version {
   font-size: 1rem;
@@ -146,11 +142,7 @@ a {
   margin-right: 1rem;
 }
 
-
-
 .UserCard {
-
-
   display: flex;
 
   align-items: center;
@@ -163,7 +155,7 @@ a {
 }
 
 .UserCard img {
-  padding:20px;
+  padding: 20px;
   margin-right: 1rem;
   width: 10%;
   height: auto;
@@ -173,7 +165,19 @@ a {
 
 .userStatus {
   display: inline-block;
-  background-color: #77DD77;
+  background-color: #77dd77;
+  padding: 10px;
+  margin-top: 20px;
+  overflow: hidden;
+
+  border-radius: 25px;
+  font-size: 10px;
+  user-select: none;
+}
+
+.offlineStatus {
+  display: inline-block;
+  background-color: grey;
   padding: 10px;
   margin-top: 20px;
   overflow: hidden;
@@ -187,12 +191,12 @@ a {
   font-size: 20px;
 }
 
-.products{
-  padding:20px
+.products {
+  padding: 20px;
 }
 
-.productCard{
-  margin: 20px
+.productCard {
+  margin: 20px;
 }
 
 .rating {
@@ -226,11 +230,10 @@ a {
   width: auto;
 }
 
-.ProductDesc{
+.ProductDesc {
   background: #cccccc;
   border-radius: 10px;
-  color:black
-
+  color: black;
 }
 
 .disabled {
@@ -238,16 +241,13 @@ a {
   color: gray;
 }
 
-.HomePageCard{
+.HomePageCard {
   cursor: pointer;
+}
 
-  }
-
-
-.userBadges{
+.userBadges {
   display: flex;
   justify-content: center;
   gap: 5px;
   padding: 10px;
 }
-
