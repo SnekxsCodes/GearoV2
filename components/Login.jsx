@@ -105,9 +105,20 @@ export default function Login() {
   }
 
   function submitSignout() {
-    localStorage.removeItem("name");
-    supabase.auth.signOut();
+    supabase
+      .from("users")
+      .update({ online: false })
+      .eq("name", localStorage.getItem("name"))
+      .then((result) => {
+        console.log("User online status updated:", result);
+        localStorage.removeItem("name");
+        localStorage.removeItem("uuid");
+      })
+      .catch((error) => {
+        console.log("Error updating user online status:", error.message);
+      });
     router.reload();
+    supabase.auth.signOut();
   }
 
   function profileHandler() {
@@ -124,12 +135,27 @@ export default function Login() {
         } else {
           toast.success("Welcome!");
           supabase
-            .from("user")
+            .from("users")
             .select("*")
             .eq("email", values.email)
             .then((response) => {
-              localStorage.setItem("name", response.data[0].user_info.name);
-              localStorage.setItem("name", response.data[0].user_info.name);
+              localStorage.setItem("name", response.data[0].name);
+              localStorage.setItem("uuid", response.data[0].user_uuid);
+
+              supabase
+                .from("users")
+                .update({ online: true })
+                .eq("email", values.email)
+                .then((result) => {
+                  console.log("User online status updated:", result);
+                })
+                .catch((error) => {
+                  console.log(
+                    "Error updating user online status:",
+                    error.message
+                  );
+                });
+
               router.reload();
             });
         }

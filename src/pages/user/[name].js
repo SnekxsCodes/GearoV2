@@ -18,14 +18,11 @@ export default function UserPage(name) {
 
   useEffect(() => {
     async function fetchData() {
-      await supabase
-        .from("user")
+      const response = await supabase
+        .from("users")
         .select("*")
-        .eq("user_info->>name", name.name)
-        .then((response) => {
-          setData(response.data);
-          console.log(response.data);
-        });
+        .eq("name", name.name);
+      setData(response.data);
     }
     fetchData();
   }, []);
@@ -149,17 +146,17 @@ export default function UserPage(name) {
       {data?.map((user) => (
         <>
           <div className="UserCard" key={user.id}>
-            <img src={user.user_info.image} />
+            <img src={user.user_image} />
             <div className={"userInfo"}>
-              <Heading>{user.user_info.name}</Heading>
+              <Heading>{user.name}</Heading>
               <Heading size={"md"} className={"UserCreated"}>
                 Created {daysAgo(user.created_at)}
               </Heading>
-              {isOnline(user.user_info.online)}
+              {isOnline(user.online)}
             </div>
           </div>
           <Divider />
-          <div className={"products"}>
+          {/*<div className={"products"}>
             <Card
               direction={{ base: "column", sm: "row" }}
               overflow="hidden"
@@ -289,7 +286,7 @@ export default function UserPage(name) {
                 </CardFooter>
               </Stack>
             </Card>
-          </div>
+          </div>*/}
         </>
       ))}
     </div>

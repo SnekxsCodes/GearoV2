@@ -15,22 +15,31 @@ import {
 } from "@chakra-ui/react";
 import Rating from "../../../components/Rating";
 import toast from "react-hot-toast";
+import { useRouter } from "next/router";
 
 export default function ProfilePage(name) {
   const [data, setData] = useState();
-  const [checked, setChecked] = useState(true);
+
+  const [uuid, setUUID] = useState();
+  const [username, setUsername] = useState();
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchData() {
-      await supabase
+      const response = await supabase
         .from("users")
         .select("*")
-        .eq("name", name.name)
-        .then((response) => {
-          setData(response.data);
-          console.log(response.data);
-        });
+        .eq("name", name.name);
+      setData(response.data);
     }
+
+    async function userPermitted() {
+      const username = localStorage.getItem("name");
+      if (username !== name.name) {
+        router.push("/");
+      }
+    }
+    userPermitted();
     fetchData();
   }, []);
 
@@ -72,11 +81,16 @@ export default function ProfilePage(name) {
     reader.readAsDataURL(file);
   }
 
+  async function is_user() {
+    console.log(username);
+    console.log(uuid);
+  }
+  is_user();
+
   function EditableDesc({ initialText }) {
     const [text, setText] = useState(initialText);
 
     function handleBlur(event) {
-      // Save the updated text when the input loses focus
       const updatedText = event.target.innerText;
       setText(updatedText);
 
@@ -102,36 +116,41 @@ export default function ProfilePage(name) {
     );
   }
 
-  const textChange = () => {
-    if (checked === true) {
-      return "Public";
-    } else {
-      return "Private";
-    }
-  };
-
   function handleImageClick(s) {}
 
-  return (
-    <div>
-      <Header />
-      {data?.map((user) => (
-        <>
-          <div className="UserCard" key={user.id}>
-            <img src={user.user_image} onClick={() => handleImageClick()} />
+  function isPermitted() {
+    if (typeof window !== "undefined") {
+      const username = localStorage.getItem("name");
+      const uuid = localStorage.getItem("uuid");
+      if (username !== name.name) {
+        router.push("/");
+      } else {
+        return true;
+      }
+    }
+  }
+  if (isPermitted()) {
+    return (
+      <div>
+        <Header />
+        {data?.map((user) => (
+          <>
+            <div className="UserCard" key={user.id}>
+              <img src={user.user_image} onClick={() => handleImageClick()} />
 
-            <div className={"userinfo"}>
-              <EditableHeading initialText={user.name} />
-              <EditableDesc initialText={user.user_description} />
+              <div className={"userinfo"}>
+                <EditableHeading initialText={user.name} />
+                <EditableDesc initialText={user.user_description} />
 
-              <Heading pt={5} size={"sm"}></Heading>
+                <Heading pt={5} size={"sm"}></Heading>
+              </div>
             </div>
-          </div>
-          <Divider />
-        </>
-      ))}
-    </div>
-  );
+            <Divider />
+          </>
+        ))}
+      </div>
+    );
+  }
 }
 
 export async function getServerSideProps(context) {
