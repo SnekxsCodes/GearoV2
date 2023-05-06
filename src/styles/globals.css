@@ -191,10 +191,6 @@ a {
   font-size: 20px;
 }
 
-.products {
-  padding: 20px;
-}
-
 .productCard {
   margin: 20px;
 }
@@ -250,4 +246,36 @@ a {
   justify-content: center;
   gap: 5px;
   padding: 10px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  backdrop-filter: blur(15px) saturate(100%) contrast(1.2);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  user-select: none;
+  pointer-events: none;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-container {
+  position: relative;
+  z-index: 1;
+}
+
+img > div {
+  transform: translate(25%, 25%);
 }

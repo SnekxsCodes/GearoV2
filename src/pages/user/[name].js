@@ -11,6 +11,9 @@ import {
   Image,
   Stack,
   Divider,
+  ButtonGroup,
+  Text,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 export default function UserPage(name) {
@@ -162,137 +165,108 @@ export default function UserPage(name) {
             </div>
           </div>
           <Divider />
-          {/*<div className={"products"}>
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-              className={"productCard"}
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src={user.mouse.image}
-                alt="mouse"
-                fallbackSrc={"https://via.placeholder.com/500"}
-              />
-
-              <Stack>
+          <div
+            className={"products"}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <SimpleGrid align="center" pb="10" pt="10" columns={4} spacing={30}>
+              <Card maxW="sm">
                 <CardBody>
-                  <Heading size={"md"}>Mouse</Heading>
-                  <Heading>{user.mouse.name}</Heading>
-
-                  <Rating value={user.mouse.rating / 5} />
+                  <Image
+                    src={user.mouse_image}
+                    alt="Mouse Image"
+                    borderRadius="lg"
+                  />
+                  <Stack mt="6" spacing="3">
+                    <Heading size="md">Mouse</Heading>
+                    <Heading>{user.mouse_name}</Heading>
+                    <Rating value={user.mouse_rating} />
+                  </Stack>
                 </CardBody>
-
+                <Divider />
                 <CardFooter>
-                  <Button
-                    variant="solid"
-                    colorScheme="blue"
-                    onClick={() => clickHandler(user.mouse.name)}
-                  >
-                    Link
-                  </Button>
+                  <ButtonGroup spacing="2">
+                    <Button variant="solid" colorScheme="blue">
+                      Link
+                    </Button>
+                  </ButtonGroup>
                 </CardFooter>
-              </Stack>
-            </Card>
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-              className={"productCard"}
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src={user.mousepad.image}
-                alt="mousepad"
-                fallbackSrc={"https://via.placeholder.com/500"}
-              />
+              </Card>
 
-              <Stack>
+              <Card maxW="sm">
                 <CardBody>
-                  <Heading size={"md"}>Mousepad</Heading>
-                  <Heading>{user.mousepad.name}</Heading>
-                  <Rating value={user.mousepad.rating / 5} />
+                  <Image
+                    src={user.mousepad_image}
+                    alt="Mouse Image"
+                    borderRadius="lg"
+                  />
+                  <Stack mt="6" spacing="3">
+                    <Heading size="md">Mousepad</Heading>
+                    <Heading>{user.mousepad_name}</Heading>
+                    <Rating value={user.mousepad_rating} />
+                  </Stack>
                 </CardBody>
-
+                <Divider />
                 <CardFooter>
-                  <Button
-                    variant="solid"
-                    colorScheme="blue"
-                    onClick={() => clickHandler(user.mousepad.name)}
-                  >
-                    Link
-                  </Button>
+                  <ButtonGroup spacing="2">
+                    <Button variant="solid" colorScheme="blue">
+                      Link
+                    </Button>
+                  </ButtonGroup>
                 </CardFooter>
-              </Stack>
-            </Card>
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-              className={"productCard"}
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src={user.headphones.image}
-                alt="headphones"
-                fallbackSrc={"https://via.placeholder.com/500"}
-              />
+              </Card>
 
-              <Stack>
+              <Card maxW="sm">
                 <CardBody>
-                  <Heading size={"md"}>Headphones</Heading>
-                  <Heading>{user.headphones.name}</Heading>
-                  <Rating value={user.headphones.rating / 5} />
+                  <Image
+                    src={user.monitor_image}
+                    alt="Mouse Image"
+                    borderRadius="lg"
+                  />
+                  <Stack mt="6" spacing="3">
+                    <Heading size="md">Monitor</Heading>
+                    <Heading>{user.monitor_name}</Heading>
+                    <Rating value={user.monitor_rating} />
+                  </Stack>
                 </CardBody>
-
+                <Divider />
                 <CardFooter>
-                  <Button
-                    variant="solid"
-                    colorScheme="blue"
-                    onClick={() => clickHandler(user.headphones.name)}
-                  >
-                    Link
-                  </Button>
+                  <ButtonGroup spacing="2">
+                    <Button variant="solid" colorScheme="blue">
+                      Link
+                    </Button>
+                  </ButtonGroup>
                 </CardFooter>
-              </Stack>
-            </Card>
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-              className={"productCard"}
-            >
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src={user.monitor.image}
-                alt="monitor"
-                fallbackSrc={"https://via.placeholder.com/500"}
-              />
+              </Card>
 
-              <Stack>
+              <Card maxW="sm">
                 <CardBody>
-                  <Heading size={"md"}>Monitor</Heading>
-                  <Heading>{user.monitor.name}</Heading>
-                  <Rating value={user.monitor.rating / 5} />
+                  <Image
+                    src={user.headphone_image}
+                    alt="Headphone Image"
+                    borderRadius="lg"
+                  />
+                  <Stack mt="6" spacing="3">
+                    <Heading size="md">Headphones</Heading>
+                    <Heading>{user.headphone_name}</Heading>
+                    <Rating value={user.headphone_rating} />
+                  </Stack>
                 </CardBody>
-
+                <Divider />
                 <CardFooter>
-                  <Button
-                    variant="solid"
-                    colorScheme="blue"
-                    onClick={() => clickHandler(user.monitor.name)}
-                  >
-                    Link
-                  </Button>
+                  <ButtonGroup spacing="2">
+                    <Button variant="solid" colorScheme="blue">
+                      Link
+                    </Button>
+                  </ButtonGroup>
                 </CardFooter>
-              </Stack>
-            </Card>
-          </div>*/}
+              </Card>
+            </SimpleGrid>
+          </div>
         </>
       ))}
     </div>

@@ -113,12 +113,12 @@ export default function Login() {
         console.log("User online status updated:", result);
         localStorage.removeItem("name");
         localStorage.removeItem("uuid");
+        router.reload();
+        supabase.auth.signOut();
       })
       .catch((error) => {
         console.log("Error updating user online status:", error.message);
       });
-    router.reload();
-    supabase.auth.signOut();
   }
 
   function profileHandler() {
@@ -148,6 +148,8 @@ export default function Login() {
                 .eq("email", values.email)
                 .then((result) => {
                   console.log("User online status updated:", result);
+                  // Wait for update to finish before reloading the page
+                  router.reload();
                 })
                 .catch((error) => {
                   console.log(
@@ -155,8 +157,6 @@ export default function Login() {
                     error.message
                   );
                 });
-
-              router.reload();
             });
         }
       });

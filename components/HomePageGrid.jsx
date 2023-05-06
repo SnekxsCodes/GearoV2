@@ -10,6 +10,9 @@ import {
   Image,
   SimpleGrid,
   Tooltip,
+  Avatar,
+  AvatarBadge,
+  Box,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { MdVerified } from "react-icons/md";
@@ -56,6 +59,21 @@ export default function HomePageGrid() {
     }
   }
 
+  const OnlineBadge = () => {
+    return (
+      <Box
+        w="30px"
+        h="30px"
+        bg="#77DD77"
+        borderRadius="full"
+        position="absolute"
+        right="15px"
+        bottom="5px"
+        zIndex="1"
+      />
+    );
+  };
+
   function isMod(mod) {
     if (mod) {
       return (
@@ -73,8 +91,7 @@ export default function HomePageGrid() {
           ?.sort((a, b) => b.profile_views - a.profile_views)
           .map((user) => (
             <>
-              {user.is_private ? null : ( // if user is private, do not show the card
-                // if user is not private, show the card
+              {user.is_private ? null : (
                 <GridItem key={user.id}>
                   <Card
                     maxW="sm"
@@ -90,12 +107,17 @@ export default function HomePageGrid() {
                         alignItems: "center",
                       }}
                     >
-                      <Image
-                        boxSize="150px"
-                        src={user.user_image}
-                        alt="User Profile Picture"
-                        borderRadius="full"
-                      />
+                      <div style={{ position: "relative" }}>
+                        <Image
+                          boxSize="150px"
+                          src={user.user_image}
+                          alt="User Profile Picture"
+                          borderRadius="full"
+                          position="relative"
+                        />
+                        {user.online && <OnlineBadge />}
+                      </div>
+
                       <CardHeader>
                         <Heading>{user.name}</Heading>
                         <div className={"userBadges"}>
