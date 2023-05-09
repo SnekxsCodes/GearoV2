@@ -80,7 +80,7 @@ export default function Login() {
               email: values.email,
               name: values.username,
               user_description: null,
-              user_image: "",
+              user_image: null,
               user_uuid: gen_uuid(),
               is_mod: false,
               online: false,
