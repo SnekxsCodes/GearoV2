@@ -10,6 +10,7 @@ import HomePageGrid from "../../components/HomePageGrid";
 import SplashScreen from "../../components/SplashScreen";
 import { Cookies } from "react-cookie";
 import Maintenance from "../../components/Maintenance";
+import { Helmet } from "react-helmet";
 
 const cookies = new Cookies();
 
@@ -47,6 +48,23 @@ export default function Home() {
     setShowWelcomeScreen(false);
   };
 
+  function Preview() {
+    const url = "www.gearo.ca";
+    return (
+      <>
+        <Helmet>
+          <meta property="og:title" content={`Preview of ${url}`} />
+          <meta property="og:description" content={`Preview of ${url}`} />
+          <meta
+            property="og:image"
+            content="https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg"
+          />
+          <meta property="og:url" content={url} />
+        </Helmet>
+      </>
+    );
+  }
+
   if (isLoading) {
     return <div></div>;
   } else if (MaintenanceMode) {
@@ -54,16 +72,7 @@ export default function Home() {
   } else {
     return (
       <>
-        <Head>
-          <title>Gearo</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <meta content="Gearo" property="og:title" />
-          <meta content="Gearo Description" property="og:description" />
-          <meta content="www.gearo.ca" property="og:url" />
-
-          <meta content="#43B581" data-react-helmet="true" name="theme-color" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
+        <Preview />
 
         <div className="overlay-container">
           <Header />

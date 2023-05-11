@@ -2,6 +2,7 @@ import { Flex, Heading } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { supabase } from "./helpers/supabase";
 import Head from "next/head";
+import { Helmet } from "react-helmet";
 
 function CountDown({ date }) {
   const [time, setTime] = useState({
@@ -55,6 +56,23 @@ function CountDown({ date }) {
   );
 }
 
+function Preview() {
+  const url = "www.gearo.ca";
+  return (
+    <>
+      <Helmet>
+        <meta property="og:title" content={`Preview of ${url}`} />
+        <meta property="og:description" content={`Preview of ${url}`} />
+        <meta
+          property="og:image"
+          content="https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg"
+        />
+        <meta property="og:url" content={url} />
+      </Helmet>
+    </>
+  );
+}
+
 export default function Maintenance() {
   const [dateUnlock, setDateUnlock] = useState();
 
@@ -77,16 +95,7 @@ export default function Maintenance() {
 
   return (
     <div className={"Maintenance"}>
-      <Head>
-        <title>Gearo</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta content="Gearo" property="og:title" />
-        <meta content="Gearo Description" property="og:description" />
-        <meta content="www.gearo.ca" property="og:url" />
-
-        <meta content="#43B581" data-react-helmet="true" name="theme-color" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <Preview />
       <Flex
         height="100vh"
         justifyContent="center"
