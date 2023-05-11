@@ -1,6 +1,7 @@
 import { Flex, Heading } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { supabase } from "./helpers/supabase";
+import Head from "next/head";
 
 function CountDown({ date }) {
   const [time, setTime] = useState({
@@ -76,6 +77,16 @@ export default function Maintenance() {
 
   return (
     <div className={"Maintenance"}>
+      <Head>
+        <title>Gearo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta content="Gearo" property="og:title" />
+        <meta content="Gearo Description" property="og:description" />
+        <meta content="www.gearo.ca" property="og:url" />
+
+        <meta content="#43B581" data-react-helmet="true" name="theme-color" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Flex
         height="100vh"
         justifyContent="center"
