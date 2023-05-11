@@ -57,6 +57,11 @@ export default function Home() {
         <Head>
           <title>Gearo</title>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta content="Gearo" property="og:title" />
+          <meta content="Gearo Description" property="og:description" />
+          <meta content="www.gearo.ca" property="og:url" />
+
+          <meta content="#43B581" data-react-helmet="true" name="theme-color" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
 

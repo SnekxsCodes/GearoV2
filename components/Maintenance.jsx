@@ -75,15 +75,17 @@ export default function Maintenance() {
   }, []);
 
   return (
-    <Flex
-      height="100vh"
-      justifyContent="center"
-      alignItems="center"
-      flexDir="column"
-    >
-      <Heading size="xl" pb="10">
-        {dateUnlock ? <CountDown date={dateUnlock} /> : "Loading..."}
-      </Heading>
-    </Flex>
+    <div className={"Maintenance"}>
+      <Flex
+        height="100vh"
+        justifyContent="center"
+        alignItems="center"
+        flexDir="column"
+      >
+        <Heading size="xl" pb="10" className={"MaintenanceText"}>
+          {dateUnlock ? <CountDown date={dateUnlock} /> : "Loading..."}
+        </Heading>
+      </Flex>
+    </div>
   );
 }

@@ -279,3 +279,17 @@ a {
 img > div {
   transform: translate(25%, 25%);
 }
+
+
+.MaintenanceText{
+  user-select: none;
+  z-index: 1;
+}
+
+.Maintenance{
+  background-color: #1A202C;
+  opacity: 1;
+  background-image: radial-gradient(#262b84 2px, #1A202C 2px);
+  background-size: 40px 40px;
+}
+
