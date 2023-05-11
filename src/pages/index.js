@@ -48,23 +48,6 @@ export default function Home() {
     setShowWelcomeScreen(false);
   };
 
-  function Preview() {
-    const url = "www.gearo.ca";
-    return (
-      <>
-        <Helmet>
-          <meta property="og:title" content={`Preview of ${url}`} />
-          <meta property="og:description" content={`Preview of ${url}`} />
-          <meta
-            property="og:image"
-            content="https://wallpapers-clan.com/wp-content/uploads/2022/02/hunter-x-hunter-killua-pfp-1.jpg"
-          />
-          <meta property="og:url" content={url} />
-        </Helmet>
-      </>
-    );
-  }
-
   if (isLoading) {
     return <div></div>;
   } else if (MaintenanceMode) {
@@ -72,7 +55,26 @@ export default function Home() {
   } else {
     return (
       <>
-        <Preview />
+        <Head>
+          {/* Primary Meta Tags */}
+          <title>Gearo</title>
+          <meta name="title" content="Gearo" />
+          <meta name="description" content="" />
+
+          {/* Open Graph / Facebook */}
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://www.gearo.ca/" />
+          <meta property="og:title" content="Gearo" />
+          <meta property="og:description" content="" />
+          <meta property="og:image" content="" />
+
+          {/* Twitter */}
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta property="twitter:url" content="https://www.gearo.ca/" />
+          <meta property="twitter:title" content="Gearo" />
+          <meta property="twitter:description" content="" />
+          <meta property="twitter:image" content="" />
+        </Head>
 
         <div className="overlay-container">
           <Header />
